@@ -21,8 +21,13 @@ class CreateGamesTable extends Migration
             $table->string('title');
             $table->string('thumbnail_url');
             $table->text('body')->nullable();
-            $table->integer('sales_amount')->nullable();
+            $table->integer('amount_paid')->nullable();
 
+            $table->boolean('game_owned')->nullable();
+            $table->boolean('book_owned')->nullable();
+            $table->boolean('box_owned')->nullable();
+
+            $table->integer('progression_status_code')->nullable();
             $table->integer('urgency')->nullable();
             $table->boolean('favorite')->nullable();
             $table->integer('score')->nullable();

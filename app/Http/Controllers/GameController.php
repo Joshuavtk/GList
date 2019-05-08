@@ -87,13 +87,15 @@ class GameController extends Controller
         $franchises = Franchise::all();
         $platforms = Platform::all(['id', 'title']);
         $tags = Tag::all();
+        $statuses = Game::PROGRESSION_STATUSES;
 
         return view('games.edit')
             ->with(compact(
                 'game',
                 'franchises',
                 'platforms',
-                'tags'
+                'tags',
+                'statuses'
             ));
     }
 
@@ -106,7 +108,23 @@ class GameController extends Controller
      */
     public function update(GameUpdateRequest $request, Game $game)
     {
-        $game->update($request->toArray());
+        // Value of $request->is_expired is either 1 or undefined so we change undefined to 0 here
+        $game_owned = $request->game_owned || 0;
+        $book_owned = $request->book_owned || 0;
+        $box_owned = $request->box_owned || 0;
+
+        if ($game_owned && $book_owned && $box_owned) {
+            $data = $request->toArray();
+        } else {
+            // Add an is_expired row to the request when the value is 0
+            $data = array_merge($request->toArray(), [
+                'game_owned' => $game_owned,
+                'book_owned' => $book_owned,
+                'box_owned' => $box_owned,
+            ]);
+        }
+
+        $game->update($data);
 
         $franchises = Franchise::all();
 

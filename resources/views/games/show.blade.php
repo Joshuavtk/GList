@@ -6,9 +6,11 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{$game->title}}</h1>
         <div>
-            <a href="{{ route('game.edit', $game->id) }}" class="btn btn-success"><span class="fas fa-plus"></span> Add to list</a>
+            <a href="{{ route('game.edit', $game->id) }}" class="btn btn-success"><span class="fas fa-plus"></span> Add
+                to list</a>
             <a href="{{ route('game.edit', $game->id) }}" class="btn btn-primary"><span class="fas fa-edit"></span> Edit</a>
-            <a href="{{ route('game.edit', $game->id) }}" class="btn btn-danger"><span class="fas fa-trash"></span> Delete</a>
+            <a href="{{ route('game.edit', $game->id) }}" class="btn btn-danger"><span class="fas fa-trash"></span>
+                Delete</a>
         </div>
     </div>
 
@@ -17,8 +19,7 @@
         <div class="col-md-6 col-xl-8 col-12">
             <div class="row ">
 
-            @if(count($game->franchises))
-                <!-- Earnings (Monthly) Card Example -->
+                @if(count($game->franchises))
                     <div class="col-12 mb-4 col-xl-6">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
@@ -40,9 +41,9 @@
                             </div>
                         </div>
                     </div>
-            @endif
+                @endif
 
-            @if(count($game->platforms))
+                @if(count($game->platforms))
                 <!-- Earnings (Monthly) Card Example -->
                     <div class="col-12 mb-4 col-xl-6">
                         <div class="card border-left-success shadow h-100 py-2">
@@ -65,9 +66,9 @@
                             </div>
                         </div>
                     </div>
-            @endif
+                @endif
 
-            @if(count($game->tags))
+                @if(count($game->tags))
                 <!-- Earnings (Monthly) Card Example -->
                     <div class="col-12 mb-4 col-xl-6">
                         <div class="card border-left-danger shadow h-100 py-2">
@@ -124,6 +125,9 @@
                     {{$game->finished_at}}
                     {{$game->release_date_at}}
                     {{$game->sales_amount}}
+                    {{$game->game_owned}}
+                    {{$game->book_owned}}
+                    {{$game->box_owned}}
 
                 </div>
             </div>

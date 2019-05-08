@@ -7,6 +7,7 @@
             <form method="post" action="{{route('game.store')}}">
                 {{ method_field('POST') }}
                 {{ csrf_field() }}
+
                 <div class="form-group row">
                     <label for="game-title" class="col-md-4 col-form-label text-md-right">Title</label>
                     <div class="col-md-6">
@@ -28,12 +29,6 @@
                                type="number" name="urgency" class="form-control">
                     </div>
                 </div>
-                {{--                <div class="form-group row">--}}
-                {{--                    <label for="game-favorite" class="col-md-4 col-form-label text-md-right">Favorite</label>--}}
-                {{--                    <div class="col-md-6">--}}
-                {{--                        <input id="game-favorite" type="checkbox" name="favorite" class="form-control">--}}
-                {{--                    </div>--}}
-                {{--                </div>--}}
                 <div class="form-group row">
                     <label for="game-score" class="col-md-4 col-form-label text-md-right">Score</label>
                     <div class="col-md-6">
@@ -43,10 +38,10 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="game-sales_amount" class="col-md-4 col-form-label text-md-right">Amount sold</label>
+                    <label for="game-amount_paid" class="col-md-4 col-form-label text-md-right">Amount paid</label>
                     <div class="col-md-6">
-                        <input id="game-sales_amount" placeholder="Score..."
-                               type="number" name="sales_amount" class="form-control">
+                        <input id="game-amount_paid" placeholder="Score..."
+                               type="number" name="amount_paid" class="form-control">
                     </div>
                 </div>
 
@@ -80,47 +75,86 @@
                                type="date" name="release_date_at" class="form-control">
                     </div>
                 </div>
-                <div class="row">
 
-                    <div class="col-4 form-group row pb-0">
-                        <label class="col-12">Franchises</label>
-                        <div class="col-12 form-check mt-2" id="franchise-selector">
-                            @foreach($franchises as $franchise)
-                                <label class="custom-control custom-checkbox">
-                                    <input name="franchise_id[]" class="custom-control-input"
-                                           value="{{$franchise->id}}" type="checkbox" id="game_{{$franchise->id}}">
-                                    <span class="custom-control-label">{{$franchise->title}}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <div class="col-4 form-group row pb-0">
-                        <label class="col-12">Platforms</label>
-                        <div class="col-12 form-check mt-2" id="platform-selector">
-                            @foreach($platforms as $platform)
-                                <label class="custom-control custom-checkbox">
-                                    <input name="platform_id[]" class="custom-control-input"
-                                           value="{{$platform->id}}" type="checkbox" id="game_{{$platform->id}}">
-                                    <span class="custom-control-label">{{$platform->title}}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <div class="col-4 form-group row pb-0">
-                        <label class="col-12">Tags</label>
-                        <div class="col-12 form-check mt-2" id="tag-selector">
-                            @foreach($tags as $tag)
-                                <label class="custom-control custom-checkbox">
-                                    <input name="tag_id[]" class="custom-control-input"
-                                           value="{{$tag->id}}" type="checkbox" id="game_{{$tag->id}}">
-                                    <span class="custom-control-label">{{$tag->title}}</span>
-                                </label>
-                            @endforeach
-                        </div>
+                <div class="form-group row">
+                    <label for="game-progression_status_code" class="col-md-4 col-form-label text-md-right">Game
+                        progression</label>
+                    <div class="col-md-6">
+                        <select id="game-progression_status_code" class="custom-select" name="progression_status_code">
+                            <option value="1">Not yet played</option>
+                            <option value="2">Tested</option>
+                            <option value="3">Playing</option>
+                            <option value="4">Finished</option>
+                            <option value="5">100% Completed</option>
+                        </select>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="form-group col">
+                        <label class="custom-control custom-checkbox">
+                            <input name="game_owned" class="custom-control-input" value="1" type="checkbox">
+                            <span class="custom-control-label">Game owned</span>
+                        </label>
+                    </div>
+                    <div class="form-group col">
+                        <label class="custom-control custom-checkbox">
+                            <input name="book_owned" class="custom-control-input" value="1" type="checkbox">
+                            <span class="custom-control-label">Book owned</span>
+                        </label>
+                    </div>
+                    <div class="form-group col">
+                        <label class="custom-control custom-checkbox">
+                            <input name="box_owned" class="custom-control-input" value="1" type="checkbox">
+                            <span class="custom-control-label">Box owned</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="game-platform" class="col-md-4 col-form-label text-md-right">Platforms</label>
+                    <div class="col-md-6">
+                        <select id="game-platform" name="platform_id[]" class="selectpicker" multiple data-show-subtext="true" data-live-search="true">
+                            @foreach($platforms as $platform)
+                                <option value="{{$platform->id}}">{{$platform->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="game-franchise" class="col-md-4 col-form-label text-md-right">Franchises</label>
+                    <div class="col-md-6">
+                        <select id="game-franchise" name="franchise_id[]" class="selectpicker" multiple data-show-subtext="true" data-live-search="true">
+                            @foreach($franchises as $franchise)
+                                <option value="{{$franchise->id}}">{{$franchise->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="game-tag" class="col-md-4 col-form-label text-md-right">Tags</label>
+                    <div class="col-md-6">
+                        <select id="game-tag" name="tag_id[]" class="selectpicker" multiple data-show-subtext="true" data-live-search="true">
+                            @foreach($tags as $tag)
+                                <option value="{{$tag->id}}">{{$tag->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="game-version" class="col-md-4 col-form-label text-md-right">Version</label>
+                    <div class="col-md-6">
+                        <select id="game-version" name="version_id" class="selectpicker" data-show-subtext="true" data-live-search="true">
+                            @foreach($tags as $tag)
+                                <option value="{{$tag->id}}">{{$tag->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row pt-3">
                     <div class="col">
                         <p class="text-right">
