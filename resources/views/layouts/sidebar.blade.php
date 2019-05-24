@@ -18,6 +18,11 @@
             <i class="fas fa-fw fa-home"></i>
             <span>Home</span></a>
     </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('game.create') }}">
+            <i class="fas fa-fw fa-plus"></i>
+            <span>Add new game</span></a>
+    </li>
 
     <!-- Divider -->
 {{--    <hr class="sidebar-divider">--}}

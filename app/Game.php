@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * Class Game
  * @package App
+ * @property integer id
  * @property string title
  * @property string body
  * @property string thumbnail_url
@@ -23,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property object platforms
  * @property object franchises
  * @property object tags
+ * @property object editions
  */
 class Game extends Model
 {
@@ -70,6 +72,14 @@ class Game extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function editions(): BelongsToMany
+    {
+        return $this->belongsToMany(Edition::class);
     }
 
 }

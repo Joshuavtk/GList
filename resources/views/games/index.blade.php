@@ -5,36 +5,48 @@
 
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-12">
-            <div class="card shadow h-100 py-2">
+            <div class="card container shadow h-100 py-2">
                 <div class="card-body">
-                    <a class="btn btn-primary mb-2" href="{{route('game.create')}}"><span class="fas fa-plus"></span> Create new game</a><br>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Score</th>
-                            <th scope="col">Urgency</th>
-                            <th scope="col">Favorite</th>
-                            <th scope="col">Obtained at</th>
-                            <th scope="col">Finished at</th>
-                            <th scope="col"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                    <h3>Games</h3>
+                    <div class="row">
                         @foreach($games as $game)
-                            <tr>
-                                <td>{{$game->title}}</td>
-                                <td>{{$game->score}}</td>
-                                <td>{{$game->urgency}}</td>
-                                <td>{{$game->favorite ? 'yes' : 'no'}}</td>
-                                <td>{{$game->obtained_at}}</td>
-                                <td>{{$game->finished_at}}</td>
-                                <td>
-                                    <a href="{{ route('game.show', $game->id) }}">Show</a></td>
-                            </tr>
+
+                            <div class="col-md-4 col-12 col-sm-6 col-xl-3 px-0">
+                                <a class="thumbnail card m-2" href="{{ route('game.show', $game->id) }}">
+                                    <img class="rounded" src="{{$game->thumbnail_url}}">
+                                    <div class="position-absolute thumbnail-text rounded-bottom p-2">
+                                        <p class="m-0 mb-1 text-light">{{$game->title}}</p>
+                                        <p class="m-0 text-lg d-flex">
+                                            <i class="mx-1 text-{{$game->game_owned ? 'light' : 'dark'}} fas fa-compact-disc"></i>
+                                            <i class="mx-1 text-{{$game->book_owned ? 'light' : 'dark'}} fas fa-book-open"></i>
+                                            <i class="mx-1 text-{{$game->box_owned ? 'light' : 'dark'}} fas fa-box"></i>
+                                            @if ($game->urgency !== 0)
+                                                @if($game->urgency >= 8)
+                                                    <span class="ml-auto text-danger">
+                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}
+                                                    </span>
+                                                @elseif($game->urgency >= 5)
+                                                    <span class="ml-auto text-warning">
+                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}
+                                                    </span>
+                                                @elseif($game->urgency >= 3)
+                                                    <span class="ml-auto text-success">
+                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}
+                                                    </span>
+                                                @else
+                                                    <span class="ml-auto text-dark">
+                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}
+                                                    </span>
+                                                @endif
+                                            @endif
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+
                         @endforeach
-                        </tbody>
-                    </table>
+                    </div>
+
                 </div>
             </div>
         </div>

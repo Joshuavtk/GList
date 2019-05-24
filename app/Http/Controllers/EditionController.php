@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Version;
+use App\Edition;
 use Illuminate\Http\Request;
 
-class VersionController extends Controller
+class EditionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class VersionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Version  $version
+     * @param  \App\Edition  $edition
      * @return \Illuminate\Http\Response
      */
-    public function show(Version $version)
+    public function show(Edition $edition)
     {
         //
     }
@@ -52,10 +52,10 @@ class VersionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Version  $version
+     * @param  \App\Edition  $edition
      * @return \Illuminate\Http\Response
      */
-    public function edit(Version $version)
+    public function edit(Edition $edition)
     {
         //
     }
@@ -64,10 +64,10 @@ class VersionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Version  $version
+     * @param  \App\Edition  $edition
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Version $version)
+    public function update(Request $request, Edition $edition)
     {
         //
     }
@@ -75,10 +75,10 @@ class VersionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Version  $version
+     * @param  \App\Edition  $edition
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Version $version)
+    public function destroy(Edition $edition)
     {
         //
     }

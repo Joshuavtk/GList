@@ -19,7 +19,7 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('thumbnail_url');
+            $table->string('thumbnail_url')->nullable();
             $table->text('body')->nullable();
             $table->integer('amount_paid')->nullable();
 
@@ -58,6 +58,12 @@ class CreateGamesTable extends Migration
             $table->integer('franchise_id');
             $table->integer('game_id');
             $table->primary(['franchise_id', 'game_id']);
+        });
+
+        Schema::create('edition_game', function (Blueprint $table) {
+            $table->integer('edition_id');
+            $table->integer('game_id');
+            $table->primary(['edition_id', 'game_id']);
         });
     }
 

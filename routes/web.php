@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('logout', 'Auth\LoginController@logout')->name('log_out');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -26,6 +27,7 @@ Route::prefix('game')->name('game.')->middleware('auth')->group(function () {
     Route::get('/', 'GameController@index')->name('index');
     Route::get('create', 'GameController@create')->name('create');
     Route::post('store', 'GameController@store')->name('store');
+    Route::get('search', 'GameController@search')->name('search');
     Route::get('{game}', 'GameController@show')->name('show');
     Route::get('{game}/edit', 'GameController@edit')->name('edit');
     Route::patch('{game}/update', 'GameController@update')->name('update');

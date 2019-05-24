@@ -35,7 +35,7 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-pallet fa-2x text-gray-300"></i>
+                                        <i class="fas fa-pallet fa-2x text-gray-400"></i>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fab fa-usb fa-2x text-gray-300"></i>
+                                        <i class="fab fa-usb fa-2x text-gray-400"></i>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +85,32 @@
                                         </div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-tags fa-2x text-gray-300"></i>
+                                        <i class="fas fa-tags fa-2x text-gray-400"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                @if(count($game->editions))
+                <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-12 mb-4 col-xl-6">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1">
+                                            Editions
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            @foreach($game->editions as $edition)
+                                                <h2 class="badge badge-warning text-dark">{{$edition->title}}</h2>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-tags fa-2x text-gray-400"></i>
                                     </div>
                                 </div>
                             </div>
@@ -106,6 +131,20 @@
         </div>
     </div>
 
+    <div class="row text-center mb-4">
+        <div class="col-md-4">
+            <b>Game owned:</b> <i
+                    class="fas {{$game->game_owned ? 'text-success fa-check' : 'text-danger fa-times'}}"></i>
+        </div>
+        <div class="col-md-4">
+            <b>Book owned:</b> <i
+                    class="fas {{$game->book_owned ? 'text-success fa-check' : 'text-danger fa-times'}}"></i>
+        </div>
+        <div class="col-md-4">
+            <b>Box owned:</b> <i
+                    class="fas {{$game->box_owned ? 'text-success fa-check' : 'text-danger fa-times'}}"></i>
+        </div>
+    </div>
     <div class="row">
 
         <div class="col-12">
@@ -118,17 +157,14 @@
                 <div class="card-body">
                     {{$game->body}}
                     <hr>
-                    {{$game->score}}
-                    {{$game->urgency}}
-                    {{$game->favorite}}
-                    {{$game->obtained_at}}
-                    {{$game->finished_at}}
-                    {{$game->release_date_at}}
-                    {{$game->sales_amount}}
-                    {{$game->game_owned}}
-                    {{$game->book_owned}}
-                    {{$game->box_owned}}
-
+                    <b>Score:</b> {{$game->score}}<br>
+                    <b>Urgency:</b> {{$game->urgency}}<br>
+                    {{--                    <b>Favorite:</b> {{$game->favorite}}<br>--}}
+                    <b>Obtained at:</b> {{$game->obtained_at}}<br>
+                    <b>Finished at:</b> {{$game->finished_at}}<br>
+                    <b>Release date:</b> {{$game->release_date_at}}<br>
+                    <b>Amount paid:</b> {{$game->amount_paid}}<br>
+                    <b>Price estimate:</b> {{$game->price_estimate}}<br>
                 </div>
             </div>
 

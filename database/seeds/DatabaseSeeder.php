@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
          $this->call(TagSeeder::class);
          $this->call(PlatformSeeder::class);
          $this->call(FranchiseSeeder::class);
+         $this->call(EditionSeeder::class);
          $this->call(GameSeeder::class);
          $this->call(UserSeeder::class);
     }

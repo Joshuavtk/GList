@@ -10,6 +10,10 @@ use Illuminate\Foundation\Http\FormRequest;
  * @property array platform_id
  * @property array franchise_id
  * @property array tag_id
+ * @property array edition_id
+ * @property boolean game_owned
+ * @property boolean book_owned
+ * @property boolean box_owned
  */
 class GameUpdateRequest extends FormRequest
 {

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Http\FormRequest;
  * @package App\Http\Requests
  * @property array platform_id
  * @property array franchise_id
+ * @property array edition_id
  * @property array tag_id
  */
 class GameStoreRequest extends FormRequest
@@ -41,6 +42,7 @@ class GameStoreRequest extends FormRequest
             'platform_id' => 'nullable|array',
             'franchise_id' => 'nullable|array',
             'tag_id' => 'nullable|array',
+            'edition_id' => 'nullable|array',
         ];
     }
 }

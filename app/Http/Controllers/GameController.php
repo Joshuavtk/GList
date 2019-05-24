@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Edition;
 use App\Franchise;
 use App\Game;
 use App\Http\Requests\GameStoreRequest;
 use App\Http\Requests\GameUpdateRequest;
 use App\Platform;
 use App\Tag;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /**
@@ -41,12 +43,14 @@ class GameController extends Controller
         $franchises = Franchise::all();
         $platforms = Platform::all(['id', 'title']);
         $tags = Tag::all();
+        $editions = Edition::all();
 
         return view('games.create')
             ->with(compact(
                 'franchises',
                 'platforms',
-                'tags'
+                'tags',
+                'editions'
             ));
     }
 
@@ -58,7 +62,14 @@ class GameController extends Controller
      */
     public function store(GameStoreRequest $request)
     {
+        /** @var Game $game */
         $game = Game::create($request->toArray());
+
+        $game->franchises()->sync($request->franchise_id);
+        $game->tags()->sync($request->tag_id);
+        $game->platforms()->sync($request->platform_id);
+        $game->editions()->sync($request->edition_id);
+
         return redirect(route('game.show', $game->id));
     }
 
@@ -126,56 +137,22 @@ class GameController extends Controller
 
         $game->update($data);
 
-        $franchises = Franchise::all();
-
-        if (empty($newFranchises = $request->franchise_id)) {
-            $newFranchises = [''];
-        }
-
-        $platforms = Platform::all();
-
-        if (empty($newPlatforms = $request->platform_id)) {
-            $newPlatforms = [''];
-        }
-
-        $tags = Tag::all();
-
-        if (empty($newTags = $request->tag_id)) {
-            $newTags = [''];
-        }
-
-        foreach ($franchises as $franchise) {
-            if (in_array($franchise->id, $newFranchises)) {
-                if (!$game->franchises->find($franchise->id)) {
-                    $game->franchises()->toggle($franchise);
-                }
-            } elseif ($game->franchises->find($franchise->id)) {
-                $game->franchises()->toggle($franchise->id);
-            }
-        }
-
-        foreach ($platforms as $platform) {
-            if (in_array($platform->id, $newPlatforms)) {
-                if (!$game->platforms->find($platform->id)) {
-                    $game->platforms()->toggle($platform);
-                }
-            } elseif ($game->platforms->find($platform->id)) {
-                $game->platforms()->toggle($platform->id);
-            }
-        }
-
-        foreach ($tags as $tag) {
-            if (in_array($tag->id, $newTags)) {
-                if (!$game->tags->find($tag->id)) {
-                    $game->tags()->toggle($tag);
-                }
-            } elseif ($game->tags->find($tag->id)) {
-                $game->tags()->toggle($tag->id);
-            }
-        }
-
+        $game->franchises()->sync($request->franchise_id);
+        $game->tags()->sync($request->tag_id);
+        $game->platforms()->sync($request->platform_id);
+        $game->editions()->sync($request->edition_id);
         return redirect(route('game.show', $game->id));
     }
+
+    public function search(Request $search_input)
+    {
+        $search_term = $search_input->search_input;
+
+        $games = Game::where('title', 'LIKE', "%$search_term%")->get();
+
+        return view('games.index')->with(compact('games'));
+    }
+
 
     /**
      * Remove the specified resource from storage.

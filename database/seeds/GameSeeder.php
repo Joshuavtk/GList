@@ -1,5 +1,6 @@
 <?php
 
+use App\Edition;
 use App\Franchise;
 use App\Game;
 use App\Platform;
@@ -54,6 +55,7 @@ class GameSeeder extends Seeder
             $platform = Platform::all()->random();
             $tag = Tag::all()->random();
             $franchise = Franchise::all()->random();
+            $edition = Edition::all()->random();
             $game = new Game;
             $game->title = $this->faker->randomElement($gameTitlesPrepend) . ' ' . $this->faker->randomElement($gameTitlesAppend);
             $game->body = $this->faker->realText(200);
@@ -74,6 +76,7 @@ class GameSeeder extends Seeder
             $platform->games()->save($game);
             $tag->games()->save($game);
             $franchise->games()->save($game);
+            $edition->games()->save($game);
 //            $game->franchises
 //            factory(Game::class)->create([
 //                'platform_id' => $platform

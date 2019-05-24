@@ -38,9 +38,17 @@
                 </div>
 
                 <div class="form-group row">
+                    <label for="game-price_estimate" class="col-md-4 col-form-label text-md-right">Price estimated</label>
+                    <div class="col-md-6">
+                        <input id="game-price_estimate" placeholder="Price estimated..."
+                               type="number" name="price_estimate" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label for="game-amount_paid" class="col-md-4 col-form-label text-md-right">Amount paid</label>
                     <div class="col-md-6">
-                        <input id="game-amount_paid" placeholder="Score..."
+                        <input id="game-amount_paid" placeholder="Amount paid..."
                                type="number" name="amount_paid" class="form-control">
                     </div>
                 </div>
@@ -114,7 +122,8 @@
                 <div class="form-group row">
                     <label for="game-platform" class="col-md-4 col-form-label text-md-right">Platforms</label>
                     <div class="col-md-6">
-                        <select id="game-platform" name="platform_id[]" class="selectpicker" multiple data-show-subtext="true" data-live-search="true">
+                        <select id="game-platform" name="platform_id[]" class="selectpicker" multiple
+                                data-show-subtext="true" data-live-search="true">
                             @foreach($platforms as $platform)
                                 <option value="{{$platform->id}}">{{$platform->title}}</option>
                             @endforeach
@@ -125,7 +134,8 @@
                 <div class="form-group row">
                     <label for="game-franchise" class="col-md-4 col-form-label text-md-right">Franchises</label>
                     <div class="col-md-6">
-                        <select id="game-franchise" name="franchise_id[]" class="selectpicker" multiple data-show-subtext="true" data-live-search="true">
+                        <select id="game-franchise" name="franchise_id[]" class="selectpicker" multiple
+                                data-show-subtext="true" data-live-search="true">
                             @foreach($franchises as $franchise)
                                 <option value="{{$franchise->id}}">{{$franchise->title}}</option>
                             @endforeach
@@ -134,9 +144,10 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="game-tag" class="col-md-4 col-form-label text-md-right">Tags</label>
+                    <label for="game-tag" class="col-md-4 col-form-label text-md-right">Info (Tags)</label>
                     <div class="col-md-6">
-                        <select id="game-tag" name="tag_id[]" class="selectpicker" multiple data-show-subtext="true" data-live-search="true">
+                        <select id="game-tag" name="tag_id[]" class="selectpicker" multiple data-show-subtext="true"
+                                data-live-search="true">
                             @foreach($tags as $tag)
                                 <option value="{{$tag->id}}">{{$tag->title}}</option>
                             @endforeach
@@ -145,15 +156,24 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="game-version" class="col-md-4 col-form-label text-md-right">Version</label>
+                    <label for="game-edition" class="col-md-4 col-form-label text-md-right">Editions</label>
                     <div class="col-md-6">
-                        <select id="game-version" name="version_id" class="selectpicker" data-show-subtext="true" data-live-search="true">
-                            @foreach($tags as $tag)
-                                <option value="{{$tag->id}}">{{$tag->title}}</option>
+                        <select id="game-edition" name="edition_id[]" class="selectpicker" multiple
+                                data-show-subtext="true" data-live-search="true">
+                            @foreach($editions as $edition)
+                                <option value="{{$edition->id}}">{{$edition->title}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
+
+                @if (count($errors))
+                    <div class="card bg-warning">
+                        @foreach($errors as $error)
+                            <p>{{$error}}</p>
+                        @endforeach
+                    </div>
+                @endif
 
                 <div class="row pt-3">
                     <div class="col">

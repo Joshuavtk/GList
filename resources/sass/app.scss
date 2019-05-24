@@ -16,3 +16,13 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.thumbnail-text {
+  width: 100%;
+  background: rgba(0,0,0,0.75);
+  bottom: 0;
+}
+
+.thumbnail:hover .thumbnail-text > p {
+  color: $primary!important;
+}
