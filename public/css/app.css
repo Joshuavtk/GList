@@ -23338,3 +23338,19 @@ body.sidebar-toggled footer.sticky-footer {
   color: #3490dc !important;
 }
 
+.urgency-None {
+  color: rgba(0, 0, 0, 0) !important;
+}
+
+.urgency-Low {
+  color: yellow !important;
+}
+
+.urgency-Medium {
+  color: orange !important;
+}
+
+.urgency-High {
+  color: red !important;
+}
+

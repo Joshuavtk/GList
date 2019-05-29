@@ -1,15 +1,10 @@
-
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
 @import '~bootstrap-select/sass/bootstrap-select';
-
 @import 'sb-admin';
 
 .navbar-laravel {
@@ -19,10 +14,26 @@
 
 .thumbnail-text {
   width: 100%;
-  background: rgba(0,0,0,0.75);
+  background: rgba(0, 0, 0, 0.75);
   bottom: 0;
 }
 
 .thumbnail:hover .thumbnail-text > p {
-  color: $primary!important;
+  color: $primary !important;
+}
+
+.urgency-None {
+  color: rgba(0, 0, 0, 0) !important;
+}
+
+.urgency-Low {
+  color: yellow !important;
+}
+
+.urgency-Medium {
+  color: orange !important;
+}
+
+.urgency-High {
+  color: red !important;
 }

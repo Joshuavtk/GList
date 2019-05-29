@@ -9,8 +9,10 @@ use App\Http\Requests\GameStoreRequest;
 use App\Http\Requests\GameUpdateRequest;
 use App\Platform;
 use App\Tag;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 /**
  * Class GameController
@@ -25,7 +27,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        $games = Game::all();
+        $games = Game::paginate(16);
 
         return view('games.index')
             ->with(compact(
@@ -57,7 +59,7 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return Response
      */
     public function store(GameStoreRequest $request)
@@ -144,13 +146,19 @@ class GameController extends Controller
         return redirect(route('game.show', $game->id));
     }
 
+    /**
+     * @param Request $search_input
+     * @return Factory|View
+     */
     public function search(Request $search_input)
     {
         $search_term = $search_input->search_input;
 
-        $games = Game::where('title', 'LIKE', "%$search_term%")->get();
+        $games = Game::where('title', 'LIKE', "%$search_term%")->paginate(16);
 
-        return view('games.index')->with(compact('games'));
+        $games->withPath("?search_input=$search_term");
+
+        return view('games.index')->with(compact('games', 'search_term'));
     }
 
 

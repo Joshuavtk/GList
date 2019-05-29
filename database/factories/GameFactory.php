@@ -13,7 +13,7 @@ $factory->define(Game::class, function (Faker $faker) {
     return [
         'title' => $faker->randomElement($gameTitlesPrepend) . ' ' . $faker->randomElement($gameTitlesAppend),
         'body' => $faker->realText(200),
-        'urgency' => $faker->numberBetween(0,10),
+        'urgency' => $faker->numberBetween(0,3),
         'favorite' => $faker->boolean,
         'score' => $faker->numberBetween(0,10),
         'obtained_at' => $faker->dateTimeThisMonth(),

@@ -62,7 +62,7 @@ class GameSeeder extends Seeder
             $game->thumbnail_url = $this->faker->imageUrl(200, 200);
             $game->price_estimate = $this->faker->numberBetween(0, 1000);
             $game->amount_paid = $this->faker->numberBetween(0, 1000);
-            $game->urgency = $this->faker->numberBetween(0, 10);
+            $game->urgency = $this->faker->numberBetween(0, 3);
             $game->favorite = $this->faker->boolean;
             $game->game_owned = $this->faker->boolean;
             $game->book_owned = $this->faker->boolean;

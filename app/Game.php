@@ -44,6 +44,7 @@ class Game extends Model
     ];
 
     const PROGRESSION_STATUSES = ['Not yet played', 'Tested', 'Playing', 'Finished', '100% Completed'];
+    const URGENCY_LEVELS = ['None', 'Low', 'Medium', 'High'];
     const NOT_YET_PLAYED = 1;
     const TESTED = 2;
     const PLAYING = 3;

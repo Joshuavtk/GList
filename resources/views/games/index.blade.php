@@ -8,6 +8,9 @@
             <div class="card container shadow h-100 py-2">
                 <div class="card-body">
                     <h3>Games</h3>
+                    @if(isset($search_term))
+                        <h4>Search term: {{$search_term}}</h4>
+                        @endif
                     <div class="row">
                         @foreach($games as $game)
 
@@ -20,31 +23,34 @@
                                             <i class="mx-1 text-{{$game->game_owned ? 'light' : 'dark'}} fas fa-compact-disc"></i>
                                             <i class="mx-1 text-{{$game->book_owned ? 'light' : 'dark'}} fas fa-book-open"></i>
                                             <i class="mx-1 text-{{$game->box_owned ? 'light' : 'dark'}} fas fa-box"></i>
-                                            @if ($game->urgency !== 0)
-                                                @if($game->urgency >= 8)
-                                                    <span class="ml-auto text-danger">
-                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}
+{{--                                            @if ($game->urgency !== 0)--}}
+{{--                                                @if($game->urgency >= 8)--}}
+                                                    <span class="ml-auto urgency-{{$game::URGENCY_LEVELS[$game->urgency]}}">
+                                                        <i class="fas fa-pastafarianism"></i>
                                                     </span>
-                                                @elseif($game->urgency >= 5)
-                                                    <span class="ml-auto text-warning">
-                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}
-                                                    </span>
-                                                @elseif($game->urgency >= 3)
-                                                    <span class="ml-auto text-success">
-                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}
-                                                    </span>
-                                                @else
-                                                    <span class="ml-auto text-dark">
-                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}
-                                                    </span>
-                                                @endif
-                                            @endif
+{{--                                                @elseif($game->urgency >= 5)--}}
+{{--                                                    <span class="ml-auto text-warning">--}}
+{{--                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}--}}
+{{--                                                    </span>--}}
+{{--                                                @elseif($game->urgency >= 3)--}}
+{{--                                                    <span class="ml-auto text-success">--}}
+{{--                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}--}}
+{{--                                                    </span>--}}
+{{--                                                @else--}}
+{{--                                                    <span class="ml-auto text-dark">--}}
+{{--                                                        <i class="fas fa-pastafarianism"></i> {{$game->urgency}}--}}
+{{--                                                    </span>--}}
+{{--                                                @endif--}}
+{{--                                            @endif--}}
                                         </p>
                                     </div>
                                 </a>
                             </div>
 
                         @endforeach
+                    </div>
+                    <div class="text-center">
+                        {{ $games->links() }}
                     </div>
 
                 </div>
