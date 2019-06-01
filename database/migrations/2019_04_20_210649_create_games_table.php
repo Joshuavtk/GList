@@ -39,6 +39,7 @@ class CreateGamesTable extends Migration
             $table->date('obtained_at')->nullable();
             $table->date('finished_at')->nullable();
 
+            $table->integer('user_id');
             $table->timestamps();
         });
 

@@ -5,6 +5,7 @@ use App\Franchise;
 use App\Game;
 use App\Platform;
 use App\Tag;
+use App\User;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
@@ -57,6 +58,7 @@ class GameSeeder extends Seeder
             $franchise = Franchise::all()->random();
             $edition = Edition::all()->random();
             $game = new Game;
+            $game->user_id = User::all()->first()->id;
             $game->title = $this->faker->randomElement($gameTitlesPrepend) . ' ' . $this->faker->randomElement($gameTitlesAppend);
             $game->body = $this->faker->realText(200);
             $game->thumbnail_url = $this->faker->imageUrl(200, 200);

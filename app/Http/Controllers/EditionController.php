@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Edition;
 use Illuminate\Http\Request;
 
+/**
+ * Class EditionController
+ * @package App\Http\Controllers
+ */
 class EditionController extends Controller
 {
     /**
@@ -14,7 +18,12 @@ class EditionController extends Controller
      */
     public function index()
     {
-        //
+        $editions = auth()->user()->editions()->paginate(16);
+
+        return view('editions.index')
+            ->with(compact(
+                'editions'
+            ));
     }
 
     /**

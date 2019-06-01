@@ -27,7 +27,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        $games = Game::paginate(16);
+        $games = auth()->user()->games()->paginate(16);
 
         return view('games.index')
             ->with(compact(
@@ -65,7 +65,7 @@ class GameController extends Controller
     public function store(GameStoreRequest $request)
     {
         /** @var Game $game */
-        $game = Game::create($request->toArray());
+        $game = auth()->user()->games()->create($request->toArray());
 
         $game->franchises()->sync($request->franchise_id);
         $game->tags()->sync($request->tag_id);

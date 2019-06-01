@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Game
  * @package App
  * @property integer id
+ * @property integer user_id
  * @property string title
  * @property string body
  * @property string thumbnail_url
@@ -25,6 +27,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property object franchises
  * @property object tags
  * @property object editions
+ * @property boolean game_owned
+ * @property boolean book_owned
+ * @property boolean box_owned
  */
 class Game extends Model
 {
@@ -50,6 +55,14 @@ class Game extends Model
     const PLAYING = 3;
     const FINISHED = 4;
     const HUNDRED_PERCENT_COMPLETED = 5;
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * @return BelongsToMany
