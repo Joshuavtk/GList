@@ -18,6 +18,12 @@
             <i class="fas fa-fw fa-home"></i>
             <span>Home</span></a>
     </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('game.index') }}">
+            <i class="fas fa-fw fa-list-ol"></i>
+            <span>Games</span></a>
+    </li>
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('game.create') }}">
             <i class="fas fa-fw fa-plus"></i>
@@ -25,25 +31,35 @@
     </li>
 
     <!-- Divider -->
-{{--    <hr class="sidebar-divider">--}}
+    <hr class="sidebar-divider">
 
     <!-- Heading -->
-{{--    <div class="sidebar-heading">--}}
-{{--        Interface--}}
-{{--    </div>--}}
+    <div class="sidebar-heading">
+        Tags
+    </div>
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('tag.index') }}">
+            <i class="fas fa-fw fa-tags"></i>
+            <span>Manage Tags</span></a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('game.create') }}">
+            <i class="fas fa-fw fa-plus"></i>
+            <span>Create new Tag</span></a>
+    </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
 {{--    <li class="nav-item active">--}}
 {{--        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"--}}
 {{--           aria-controls="collapseTwo">--}}
 {{--            <i class="fas fa-fw fa-cog"></i>--}}
-{{--            <span>Components</span>--}}
+{{--            <span>Tags</span>--}}
 {{--        </a>--}}
 {{--        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">--}}
 {{--            <div class="bg-white py-2 collapse-inner rounded">--}}
-{{--                <h6 class="collapse-header">Custom Components:</h6>--}}
-{{--                <a class="collapse-item" href="buttons.html">Buttons</a>--}}
-{{--                <a class="collapse-item active" href="cards.html">Cards</a>--}}
+{{--                <h6 class="collapse-header">Pages:</h6>--}}
+{{--                <a class="collapse-item" href="buttons.html">All Tags</a>--}}
+{{--                <a class="collapse-item active" href="cards.html">Create new Tag</a>--}}
 {{--            </div>--}}
 {{--        </div>--}}
 {{--    </li>--}}

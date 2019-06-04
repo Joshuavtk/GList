@@ -42,16 +42,16 @@ class GameController extends Controller
      */
     public function create()
     {
-        $franchises = Franchise::all();
-        $platforms = Platform::all(['id', 'title']);
-        $tags = Tag::all();
-        $editions = Edition::all();
+        $franchises = Tag::all()->where('category', '=', 0);
+        $platforms = Tag::all()->where('category', '=', 1);
+        $notes = Tag::all()->where('category', '=', 2);
+        $editions = Tag::all()->where('category', '=', 3);
 
         return view('games.create')
             ->with(compact(
                 'franchises',
                 'platforms',
-                'tags',
+                'notes',
                 'editions'
             ));
     }
@@ -59,7 +59,7 @@ class GameController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param GameStoreRequest $request
      * @return Response
      */
     public function store(GameStoreRequest $request)
@@ -154,7 +154,7 @@ class GameController extends Controller
     {
         $search_term = $search_input->search_input;
 
-        $games = Game::where('title', 'LIKE', "%$search_term%")->paginate(16);
+        $games = auth()->user()->games()->where('title', 'LIKE', "%$search_term%")->paginate(16);
 
         $games->withPath("?search_input=$search_term");
 

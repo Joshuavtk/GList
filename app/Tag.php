@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
@@ -11,7 +12,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Tag extends Model
 {
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'category'];
+
+    const CATEGORIES = ['Platforms', 'Franchises', 'Notes', 'Editions'];
 
     /**
      * @return BelongsToMany
@@ -20,4 +23,13 @@ class Tag extends Model
     {
         return $this->belongsToMany(Game::class);
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

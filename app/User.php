@@ -49,4 +49,12 @@ class User extends Authenticatable
         return $this->HasMany(Game::class);
     }
 
+    /**
+     * @return HasMany
+     */
+    public function tags(): HasMany
+    {
+        return $this->HasMany(Tag::class);
+    }
+
 }

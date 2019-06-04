@@ -36,15 +36,15 @@ Route::middleware('auth')->group(function () {
         Route::delete('{game}/delete', 'GameController@destroy')->name('delete');
     });
 
-    Route::prefix('edition')->name('edition.')->group(function () {
-        Route::get('/', 'EditionController@index')->name('index');
-        Route::get('create', 'EditionController@create')->name('create');
-        Route::post('store', 'EditionController@store')->name('store');
-        Route::get('search', 'EditionController@search')->name('search');
-        Route::get('{edition}', 'EditionController@show')->name('show');
-        Route::get('{edition}/edit', 'EditionController@edit')->name('edit');
-        Route::patch('{edition}/update', 'EditionController@update')->name('update');
-        Route::delete('{edition}/delete', 'EditionController@destroy')->name('delete');
+    Route::prefix('tag')->name('tag.')->group(function () {
+        Route::get('/', 'TagController@index')->name('index');
+        Route::get('create', 'TagController@create')->name('create');
+        Route::post('store', 'TagController@store')->name('store');
+        Route::get('search', 'TagController@search')->name('search');
+        Route::get('{tag}', 'TagController@show')->name('show');
+        Route::get('{tag}/edit', 'TagController@edit')->name('edit');
+        Route::patch('{tag}/update', 'TagController@update')->name('update');
+        Route::delete('{tag}/delete', 'TagController@destroy')->name('delete');
     });
 
 });

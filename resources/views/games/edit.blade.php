@@ -15,7 +15,7 @@
                                    {{ $game->game_owned ? 'checked' : '' }} type="checkbox">
                             <span class="custom-control-label">Game owned</span>
                         </label>
-                    </div>w
+                    </div>
                     <div class="form-group col">
                         <label class="custom-control custom-checkbox">
                             <input name="book_owned" class="custom-control-input" value="1"

@@ -53,10 +53,10 @@ class GameSeeder extends Seeder
         ];
 
         for ($i = 0; $i < 100; $i++) {
-            $platform = Platform::all()->random();
+//            $platform = Platform::all()->random();
             $tag = Tag::all()->random();
-            $franchise = Franchise::all()->random();
-            $edition = Edition::all()->random();
+//            $franchise = Franchise::all()->random();
+//            $edition = Edition::all()->random();
             $game = new Game;
             $game->user_id = User::all()->first()->id;
             $game->title = $this->faker->randomElement($gameTitlesPrepend) . ' ' . $this->faker->randomElement($gameTitlesAppend);
@@ -75,10 +75,10 @@ class GameSeeder extends Seeder
             $game->obtained_at = $this->faker->dateTimeThisMonth();
             $game->finished_at = $this->faker->dateTimeThisMonth();
 
-            $platform->games()->save($game);
+//            $platform->games()->save($game);
             $tag->games()->save($game);
-            $franchise->games()->save($game);
-            $edition->games()->save($game);
+//            $franchise->games()->save($game);
+//            $edition->games()->save($game);
 //            $game->franchises
 //            factory(Game::class)->create([
 //                'platform_id' => $platform

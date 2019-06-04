@@ -25,7 +25,7 @@
                                             <i class="mx-1 text-{{$game->box_owned ? 'light' : 'dark'}} fas fa-box"></i>
 {{--                                            @if ($game->urgency !== 0)--}}
 {{--                                                @if($game->urgency >= 8)--}}
-                                                    <span class="ml-auto urgency-{{$game::URGENCY_LEVELS[$game->urgency]}}">
+                                                    <span class="ml-auto urgency-{{ (isset($game::URGENCY_LEVELS[$game->urgency])) ? $game::URGENCY_LEVELS[$game->urgency] : 'None'}}">
                                                         <i class="fas fa-pastafarianism"></i>
                                                     </span>
 {{--                                                @elseif($game->urgency >= 5)--}}

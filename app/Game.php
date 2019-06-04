@@ -45,6 +45,9 @@ class Game extends Model
         'obtained_at',
         'finished_at',
         'release_date_at',
+        'game_owned',
+        'book_owned',
+        'box_owned',
         'progression_status_code',
     ];
 

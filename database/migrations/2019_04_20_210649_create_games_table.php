@@ -43,11 +43,11 @@ class CreateGamesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('game_platform', function (Blueprint $table) {
-            $table->integer('platform_id');
-            $table->integer('game_id');
-            $table->primary(['platform_id', 'game_id']);
-        });
+//        Schema::create('game_platform', function (Blueprint $table) {
+//            $table->integer('platform_id');
+//            $table->integer('game_id');
+//            $table->primary(['platform_id', 'game_id']);
+//        });
 
         Schema::create('game_tag', function (Blueprint $table) {
             $table->integer('tag_id');
@@ -55,17 +55,17 @@ class CreateGamesTable extends Migration
             $table->primary(['tag_id', 'game_id']);
         });
 
-        Schema::create('franchise_game', function (Blueprint $table) {
-            $table->integer('franchise_id');
-            $table->integer('game_id');
-            $table->primary(['franchise_id', 'game_id']);
-        });
-
-        Schema::create('edition_game', function (Blueprint $table) {
-            $table->integer('edition_id');
-            $table->integer('game_id');
-            $table->primary(['edition_id', 'game_id']);
-        });
+//        Schema::create('franchise_game', function (Blueprint $table) {
+//            $table->integer('franchise_id');
+//            $table->integer('game_id');
+//            $table->primary(['franchise_id', 'game_id']);
+//        });
+//
+//        Schema::create('edition_game', function (Blueprint $table) {
+//            $table->integer('edition_id');
+//            $table->integer('game_id');
+//            $table->primary(['edition_id', 'game_id']);
+//        });
     }
 
     /**
