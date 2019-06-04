@@ -148,8 +148,8 @@
                     <div class="col-md-6">
                         <select id="game-tag" name="tag_id[]" class="selectpicker" multiple data-show-subtext="true"
                                 data-live-search="true">
-                            @foreach($tags as $tag)
-                                <option value="{{$tag->id}}">{{$tag->title}}</option>
+                            @foreach($notes as $note)
+                                <option value="{{$note->id}}">{{$note->title}}</option>
                             @endforeach
                         </select>
                     </div>
