@@ -30,7 +30,11 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Tag::CATEGORIES;
+        return view('tags.create')
+            ->with(compact(
+                'categories'
+            ));
     }
 
     /**
@@ -41,7 +45,9 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        auth()->user()->tags()->create($request->toArray());
+
+        return redirect(route('tag.index'));
     }
 
     /**

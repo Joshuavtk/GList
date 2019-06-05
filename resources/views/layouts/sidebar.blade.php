@@ -43,7 +43,7 @@
             <span>Manage Tags</span></a>
     </li>
     <li class="nav-item active">
-        <a class="nav-link" href="{{ route('game.create') }}">
+        <a class="nav-link" href="{{ route('tag.create') }}">
             <i class="fas fa-fw fa-plus"></i>
             <span>Create new Tag</span></a>
     </li>
