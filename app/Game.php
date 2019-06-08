@@ -59,6 +59,37 @@ class Game extends Model
     const FINISHED = 4;
     const HUNDRED_PERCENT_COMPLETED = 5;
 
+    const GAME_TITLES_PREPEND = [
+        'Super', 'The Legend of', 'Crash', 'Dying', 'Stardew', 'Garry\'s', 'Hollow', 'Mirror\'s', 'Team', 'The',
+        'Tomb', 'Fallout:', 'Dead', 'Black', 'Cities:', 'Bloody', 'Circle', 'Lego', 'Tom Clancy\'s', 'Astolfo\'s',
+        'Donkey Kong:', 'Don\'t', 'Divinity', 'Grand Theft', 'Into', 'Rainbow Six:', 'Age of', 'Rocket', 'League of',
+        'Watch', 'Bioshock', 'Plants vs.', 'Mario & Rabbits', 'South Park:', 'Yoshi\'s', 'Sid Meier\'s', 'Sekiro:',
+        'Farming', 'Risk of', 'Kerbal', 'Super Smash Brothers:', 'Dota', 'World of', 'Conker\'s', 'Realm of the',
+        'Fire Emblem:', 'Russian', 'Super', 'Custom', 'Golden', 'Happy', 'Wario Lands:', 'Metroid', 'Call of',
+        'One Piece:', 'Kirby:', 'PlayerUnknown\'s', 'AdVenture', 'Hotel', 'Dr.', 'Luigi\'s', 'Nier', 'Final', 'Bloons',
+        'Doki Doki'
+    ];
+    const GAME_TITLES_APPEND = [
+        'Mario', 'Zelda', 'Bandicoot', 'Light', 'Valley', 'Mod', 'Knight', 'Edge', 'Fortress', 'Witcher', 'Raider',
+        'New Vegas', 'Island', 'Mesa', 'Skylines', 'Trapland', 'Empires', 'City', 'Fortnite', 'Secret', 'Country',
+        'Starve', 'Original Sin', 'Auto', 'Game', 'The Breach', 'Siege', 'Empire', 'League', 'Legends', 'Dogs',
+        'Infinite', 'Zombies', 'Kingdom Battle', 'The Stick of Truth', 'The Fractured But Whole', 'Terraria',
+        'Civilization', 'Shadows Die Twice', 'Simulator', 'Rain', 'Hentai', 'Space Program', 'Ultimate', '2',
+        'Warcraft', 'Bad Fur Day', 'Mad God', 'Fates', 'Fishing', 'Meat Boy', 'Robo', 'Sun', 'Wheels',
+        'The Shake Dimension', 'Samus Returns', 'Duty', 'Cthulhu', 'Pirate Warriors', 'Funpack', 'Battlegrounds',
+        'Capitalist', 'Mansion', 'Automata', 'Fantasy', 'Tower Defence', 'Literature Club!'
+    ];
+
+    /**
+     * @return string
+     */
+    public static function generateTitle(): string
+    {
+        return static::GAME_TITLES_PREPEND[array_rand(static::GAME_TITLES_PREPEND)] . ' ' .
+            static::GAME_TITLES_APPEND[array_rand(static::GAME_TITLES_APPEND)];
+    }
+
+
     /**
      * @return BelongsTo
      */

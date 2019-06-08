@@ -8,8 +8,12 @@
 require('./bootstrap');
 require('./sb-admin');
 require('../../node_modules/bootstrap-select/js/bootstrap-select');
+require('datatables.net-bs4');
 
+// var dt = require( 'datatables.net' )( window, $ );
 // window.Vue = require('vue');
+
+$('#data_table').DataTable();
 
 /**
  * The following block of code may be used to automatically register your
@@ -33,3 +37,6 @@ require('../../node_modules/bootstrap-select/js/bootstrap-select');
 // const app = new Vue({
 //     el: '#app'
 // });
+$(document).on("keydown", ":input:not(textarea)", function(event) {
+    return event.key != "Enter";
+});

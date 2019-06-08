@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Edition;
 use App\Franchise;
 use App\Game;
 use App\Http\Requests\GameStoreRequest;
@@ -42,10 +41,10 @@ class GameController extends Controller
      */
     public function create()
     {
-        $franchises = Tag::all()->where('category', '=', 0);
-        $platforms = Tag::all()->where('category', '=', 1);
-        $notes = Tag::all()->where('category', '=', 2);
-        $editions = Tag::all()->where('category', '=', 3);
+        $franchises = auth()->user()->tags()->where('category', '=', 0)->get();
+        $platforms = auth()->user()->tags()->where('category', '=', 1)->get();
+        $notes = auth()->user()->tags()->where('category', '=', 2)->get();
+        $editions = auth()->user()->tags()->where('category', '=', 3)->get();
 
         return view('games.create')
             ->with(compact(
@@ -66,11 +65,22 @@ class GameController extends Controller
     {
         /** @var Game $game */
         $game = auth()->user()->games()->create($request->toArray());
+        $tags = [];
 
-        $game->franchises()->sync($request->franchise_id);
-        $game->tags()->sync($request->tag_id);
-        $game->platforms()->sync($request->platform_id);
-        $game->editions()->sync($request->edition_id);
+        if ($request->franchise_id) {
+            $tags = array_merge($tags, $request->franchise_id);
+        }
+        if ($request->tag_id) {
+            $tags = array_merge($tags, $request->tag_id);
+        }
+        if ($request->platform_id) {
+            $tags = array_merge($tags, $request->platform_id);
+        }
+        if ($request->edition_id) {
+            $tags = array_merge($tags, $request->edition_id);
+        }
+
+        $game->tags()->sync($tags);
 
         return redirect(route('game.show', $game->id));
     }
@@ -83,9 +93,17 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
+        $franchises = $game->tags()->where('category', '=', 0)->get();
+        $platforms = $game->tags()->where('category', '=', 1)->get();
+        $notes = $game->tags()->where('category', '=', 2)->get();
+        $editions = $game->tags()->where('category', '=', 3)->get();
         return view('games.show')
             ->with(compact(
-                'game'
+                'game',
+                'franchises',
+                'platforms',
+                'notes',
+                'editions'
             ));
     }
 
@@ -97,9 +115,10 @@ class GameController extends Controller
      */
     public function edit(Game $game)
     {
-        $franchises = Franchise::all();
-        $platforms = Platform::all(['id', 'title']);
-        $tags = Tag::all();
+        $franchises = auth()->user()->tags()->where('category', '=', 0)->get();
+        $platforms = auth()->user()->tags()->where('category', '=', 1)->get();
+        $notes = auth()->user()->tags()->where('category', '=', 2)->get();
+        $editions = auth()->user()->tags()->where('category', '=', 3)->get();
         $statuses = Game::PROGRESSION_STATUSES;
 
         return view('games.edit')
@@ -107,7 +126,8 @@ class GameController extends Controller
                 'game',
                 'franchises',
                 'platforms',
-                'tags',
+                'notes',
+                'editions',
                 'statuses'
             ));
     }
@@ -137,12 +157,25 @@ class GameController extends Controller
             ]);
         }
 
+        $tags = [];
+
+        if ($request->franchise_id) {
+            $tags = array_merge($tags, $request->franchise_id);
+        }
+        if ($request->tag_id) {
+            $tags = array_merge($tags, $request->tag_id);
+        }
+        if ($request->platform_id) {
+            $tags = array_merge($tags, $request->platform_id);
+        }
+        if ($request->edition_id) {
+            $tags = array_merge($tags, $request->edition_id);
+        }
+
+        $game->tags()->sync($tags);
+
         $game->update($data);
 
-        $game->franchises()->sync($request->franchise_id);
-        $game->tags()->sync($request->tag_id);
-        $game->platforms()->sync($request->platform_id);
-        $game->editions()->sync($request->edition_id);
         return redirect(route('game.show', $game->id));
     }
 

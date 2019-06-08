@@ -11,7 +11,7 @@
                 <div class="form-group row">
                     <label for="game-title" class="col-md-4 col-form-label text-md-right">Title</label>
                     <div class="col-md-6">
-                        <input id="game-title" placeholder="Naam..."
+                        <input id="game-title" placeholder="E.g.: {{App\Game::generateTitle()}}" required
                                type="text" name="title" class="form-control">
                     </div>
                 </div>
@@ -22,25 +22,31 @@
                                   class="form-control"></textarea>
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="game-urgency" class="col-md-4 col-form-label text-md-right">Urgency</label>
                     <div class="col-md-6">
-                        <input id="game-urgency" placeholder="Number..."
-                               type="number" name="urgency" class="form-control">
+                        <select id="game-urgency" class="custom-select" name="urgency">
+                            @foreach(App\Game::URGENCY_LEVELS as $key => $level)
+                                <option value="{{$key}}">{{$level}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="game-score" class="col-md-4 col-form-label text-md-right">Score</label>
                     <div class="col-md-6">
-                        <input id="game-score" placeholder="Score..."
+                        <input id="game-score" placeholder="Score..." min="0" max="10" step="1"
                                type="number" name="score" class="form-control">
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="game-price_estimate" class="col-md-4 col-form-label text-md-right">Price estimated</label>
+                    <label for="game-price_estimate" class="col-md-4 col-form-label text-md-right">Price
+                        estimated</label>
                     <div class="col-md-6">
-                        <input id="game-price_estimate" placeholder="Price estimated..."
+                        <input id="game-price_estimate" placeholder="Price estimated..." min="0" step="0.01"
                                type="number" name="price_estimate" class="form-control">
                     </div>
                 </div>
@@ -48,7 +54,7 @@
                 <div class="form-group row">
                     <label for="game-amount_paid" class="col-md-4 col-form-label text-md-right">Amount paid</label>
                     <div class="col-md-6">
-                        <input id="game-amount_paid" placeholder="Amount paid..."
+                        <input id="game-amount_paid" placeholder="Amount paid..." min="0" step="0.01"
                                type="number" name="amount_paid" class="form-control">
                     </div>
                 </div>
@@ -57,7 +63,7 @@
                     <label for="game-thumbnail_url" class="col-md-4 col-form-label text-md-right">Thumbnail
                         photo</label>
                     <div class="col-md-6">
-                        <input id="game-sales_amount" placeholder="Url..."
+                        <input id="game-thumbnail_url" placeholder="Url..."
                                type="text" name="thumbnail_url" class="form-control">
                     </div>
                 </div>
@@ -89,34 +95,33 @@
                         progression</label>
                     <div class="col-md-6">
                         <select id="game-progression_status_code" class="custom-select" name="progression_status_code">
-                            <option value="1">Not yet played</option>
-                            <option value="2">Tested</option>
-                            <option value="3">Playing</option>
-                            <option value="4">Finished</option>
-                            <option value="5">100% Completed</option>
+                            @foreach(App\Game::PROGRESSION_STATUSES as $key => $status)
+                                <option value="{{++$key}}">{{$status}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="form-group col">
-                        <label class="custom-control custom-checkbox">
-                            <input name="game_owned" class="custom-control-input" value="1" type="checkbox">
-                            <span class="custom-control-label">Game owned</span>
-                        </label>
-                    </div>
-                    <div class="form-group col">
-                        <label class="custom-control custom-checkbox">
-                            <input name="book_owned" class="custom-control-input" value="1" type="checkbox">
-                            <span class="custom-control-label">Book owned</span>
-                        </label>
-                    </div>
-                    <div class="form-group col">
-                        <label class="custom-control custom-checkbox">
-                            <input name="box_owned" class="custom-control-input" value="1" type="checkbox">
-                            <span class="custom-control-label">Box owned</span>
-                        </label>
-                    </div>
+
+                <div class="form-group row">
+                    <label class="custom-control custom-checkbox mx-auto">
+                        <input name="game_owned" class="custom-control-input" value="1" type="checkbox">
+                        <span class="custom-control-label">Game owned</span>
+                    </label>
+                </div>
+
+                <div class="form-group row">
+                    <label class="custom-control custom-checkbox mx-auto">
+                        <input name="book_owned" class="custom-control-input" value="1" type="checkbox">
+                        <span class="custom-control-label">Book owned</span>
+                    </label>
+                </div>
+
+                <div class="form-group row">
+                    <label class="custom-control custom-checkbox mx-auto">
+                        <input name="box_owned" class="custom-control-input" value="1" type="checkbox">
+                        <span class="custom-control-label">Box owned</span>
+                    </label>
                 </div>
 
                 <div class="form-group row">
@@ -169,9 +174,11 @@
 
                 @if (count($errors))
                     <div class="card bg-warning">
-                        @foreach($errors as $error)
-                            <p>{{$error}}</p>
-                        @endforeach
+                        <div class="card-body">
+                            @foreach($errors->all() as $error)
+                                <p>{{$error}}</p>
+                            @endforeach
+                        </div>
                     </div>
                 @endif
 

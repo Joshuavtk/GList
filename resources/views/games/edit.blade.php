@@ -8,37 +8,14 @@
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
 
-                <div class="row">
-                    <div class="form-group col">
-                        <label class="custom-control custom-checkbox">
-                            <input name="game_owned" class="custom-control-input" value="1"
-                                   {{ $game->game_owned ? 'checked' : '' }} type="checkbox">
-                            <span class="custom-control-label">Game owned</span>
-                        </label>
-                    </div>
-                    <div class="form-group col">
-                        <label class="custom-control custom-checkbox">
-                            <input name="book_owned" class="custom-control-input" value="1"
-                                   {{ $game->book_owned ? 'checked' : '' }} type="checkbox">
-                            <span class="custom-control-label">Book owned</span>
-                        </label>
-                    </div>
-                    <div class="form-group col">
-                        <label class="custom-control custom-checkbox">
-                            <input name="box_owned" class="custom-control-input" value="1"
-                                   {{ $game->box_owned ? 'checked' : '' }} type="checkbox">
-                            <span class="custom-control-label">Box owned</span>
-                        </label>
-                    </div>
-                </div>
-
                 <div class="form-group row">
                     <label for="game-title" class="col-md-4 col-form-label text-md-right">Title</label>
                     <div class="col-md-6">
-                        <input id="game-title" placeholder="Naam..." value="{{$game->title}}"
+                        <input id="game-title" placeholder="Naam..." required value="{{$game->title}}"
                                type="text" name="title" class="form-control">
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="game-body" class="col-md-4 col-form-label text-md-right">Text</label>
                     <div class="col-md-6">
@@ -46,21 +23,13 @@
                                   class="form-control">{{$game->body}}</textarea>
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="game-urgency" class="col-md-4 col-form-label text-md-right">Urgency</label>
                     <div class="col-md-6">
-                        <input value="{{$game->urgency}}" id="game-urgency" placeholder="Number..."
-                               type="number" name="urgency" class="form-control">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="progression-status" class="col-md-4 col-form-label text-md-right">Progression
-                        status</label>
-                    <div class="col-md-6">
-                        <select class="form-control" id="progression-status" name="progression_status_code">
-                            @foreach($statuses as $key => $status)
-                                <option value="{{++$key}}" {{ $game->progression_status_code === $key ? 'selected' : '' }}>{{$status}}</option>
+                        <select id="game-urgency" class="custom-select" name="urgency">
+                            @foreach(App\Game::URGENCY_LEVELS as $key => $level)
+                                <option {{ $game->urgency === $key ? 'selected' : '' }} value="{{$key}}">{{$level}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -69,15 +38,26 @@
                 <div class="form-group row">
                     <label for="game-score" class="col-md-4 col-form-label text-md-right">Score</label>
                     <div class="col-md-6">
-                        <input value="{{$game->score}}" id="game-score" placeholder="Score..."
+                        <input value="{{$game->score}}" id="game-score" placeholder="Score..." min="0" max="10" step="1"
                                type="number" name="score" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="game-price_estimate" class="col-md-4 col-form-label text-md-right">Price
+                        estimated</label>
+                    <div class="col-md-6">
+                        <input value="{{$game->price_estimate}}" id="game-price_estimate"
+                               placeholder="Price estimated..." min="0" step="0.01"
+                               type="number" name="price_estimate" class="form-control">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="game-amount_paid" class="col-md-4 col-form-label text-md-right">Amount paid</label>
                     <div class="col-md-6">
-                        <input value="{{$game->amount_paid}}" id="game-amount_paid" placeholder="Score..."
+                        <input value="{{$game->amount_paid}}" id="game-amount_paid" placeholder="Amount paid..." min="0"
+                               step="0.01"
                                type="number" name="amount_paid" class="form-control">
                     </div>
                 </div>
@@ -98,6 +78,7 @@
                                type="date" name="obtained_at" class="form-control">
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="game-finished_at" class="col-md-4 col-form-label text-md-right">Finished at</label>
                     <div class="col-md-6">
@@ -105,6 +86,7 @@
                                type="date" name="finished_at" class="form-control">
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label for="game-release_date_at" class="col-md-4 col-form-label text-md-right">Released at</label>
                     <div class="col-md-6">
@@ -112,57 +94,107 @@
                                type="date" name="release_date_at" class="form-control">
                     </div>
                 </div>
-                <div class="row">
 
-                    <div class="col-4 form-group row pb-0">
-                        <label class="col-12">Franchises</label>
-                        <div class="col-12 form-check mt-2" id="franchise-selector">
-                            @foreach($franchises as $franchise)
-                                <label class="custom-control custom-checkbox">
-                                    <input name="franchise_id[]" class="custom-control-input"
-                                           {{ $game->franchises->find($franchise->id) ? 'checked' : '' }}
-                                           value="{{$franchise->id}}" type="checkbox" id="game_{{$franchise->id}}">
-                                    <span class="custom-control-label">{{$franchise->title}}</span>
-                                </label>
+                <div class="form-group row">
+                    <label for="game-progression_status_code" class="col-md-4 col-form-label text-md-right">Game
+                        progression</label>
+                    <div class="col-md-6">
+                        <select id="game-progression_status_code" class="custom-select" name="progression_status_code">
+                            @foreach(App\Game::PROGRESSION_STATUSES as $key => $status)
+                                <option value="{{++$key}}" {{ $game->progression_status_code === $key ? 'selected' : '' }}>{{$status}}</option>
                             @endforeach
-                        </div>
-                    </div>
-
-                    <div class="col-4 form-group row pb-0">
-                        <label class="col-12">Platforms</label>
-                        <div class="col-12 form-check mt-2" id="platform-selector">
-                            @foreach($platforms as $platform)
-                                <label class="custom-control custom-checkbox">
-                                    <input name="platform_id[]" class="custom-control-input"
-                                           {{ $game->platforms->find($platform->id) ? 'checked' : '' }}
-                                           value="{{$platform->id}}" type="checkbox" id="game_{{$platform->id}}">
-                                    <span class="custom-control-label">{{$platform->title}}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                    </div>
-
-                    <div class="col-4 form-group row pb-0">
-                        <label class="col-12">Tags</label>
-                        <div class="col-12 form-check mt-2" id="tag-selector">
-                            @foreach($tags as $tag)
-                                <label class="custom-control custom-checkbox">
-                                    <input name="tag_id[]" class="custom-control-input"
-                                           {{ $game->tags->find($tag->id) ? 'checked' : '' }}
-                                           value="{{$tag->id}}" type="checkbox" id="game_{{$tag->id}}">
-                                    <span class="custom-control-label">{{$tag->title}}</span>
-                                </label>
-                            @endforeach
-                        </div>
+                        </select>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                    <label class="custom-control custom-checkbox mx-auto">
+                        <input name="game_owned" class="custom-control-input" value="1" type="checkbox"
+                                {{ $game->game_owned ? 'checked' : '' }} >
+                        <span class="custom-control-label">Game owned</span>
+                    </label>
+                </div>
+
+                <div class="form-group row">
+                    <label class="custom-control custom-checkbox mx-auto">
+                        <input name="book_owned" class="custom-control-input" value="1" type="checkbox"
+                                {{ $game->book_owned ? 'checked' : '' }} >
+                        <span class="custom-control-label">Book owned</span>
+                    </label>
+                </div>
+
+                <div class="form-group row">
+                    <label class="custom-control custom-checkbox mx-auto">
+                        <input name="box_owned" class="custom-control-input" value="1" type="checkbox"
+                                {{ $game->box_owned ? 'checked' : '' }}>
+                        <span class="custom-control-label">Box owned</span>
+                    </label>
+                </div>
+
+                <div class="form-group row">
+                    <label for="game-platform" class="col-md-4 col-form-label text-md-right">Platforms</label>
+                    <div class="col-md-6">
+                        <select id="game-platform" name="platform_id[]" class="selectpicker" multiple
+                                data-show-subtext="true" data-live-search="true">
+                            @foreach($platforms as $platform)
+                                <option {{ $game->tags->find($platform->id) ? 'selected' : '' }} value="{{$platform->id}}">{{$platform->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="game-franchise" class="col-md-4 col-form-label text-md-right">Franchises</label>
+                    <div class="col-md-6">
+                        <select id="game-franchise" name="franchise_id[]" class="selectpicker" multiple
+                                data-show-subtext="true" data-live-search="true">
+                            @foreach($franchises as $franchise)
+                                <option {{ $game->tags->find($franchise->id) ? 'selected' : '' }} value="{{$franchise->id}}">{{$franchise->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="game-tag" class="col-md-4 col-form-label text-md-right">Info (Tags)</label>
+                    <div class="col-md-6">
+                        <select id="game-tag" name="tag_id[]" class="selectpicker" multiple data-show-subtext="true"
+                                data-live-search="true">
+                            @foreach($notes as $note)
+                                <option {{ $game->tags->find($note->id) ? 'selected' : '' }} value="{{$note->id}}">{{$note->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="game-edition" class="col-md-4 col-form-label text-md-right">Editions</label>
+                    <div class="col-md-6">
+                        <select id="game-edition" name="edition_id[]" class="selectpicker" multiple
+                                data-show-subtext="true" data-live-search="true">
+                            @foreach($editions as $edition)
+                                <option {{ $game->tags->find($edition->id) ? 'selected' : '' }} value="{{$edition->id}}">{{$edition->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                @if (count($errors))
+                    <div class="card bg-warning">
+                        <div class="card-body">
+                            @foreach($errors->all() as $error)
+                                <p>{{$error}}</p>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
 
                 <div class="row pt-3">
                     <div class="col">
                         <p class="text-right">
-                            <button type="submit" class="btn btn-space btn-primary">Save</button>
+                            <button type="submit" class="btn btn-space btn-primary">Update game</button>
                             <a class="btn btn-space btn-secondary"
-                               href="{{back()->getTargetUrl()}}">Cancel</a>
+                               href="{{back()->getTargetUrl()}}">Annuleer</a>
                         </p>
                     </div>
                 </div>

@@ -19,7 +19,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
+        $tags = auth()->user()->tags()->get();
         return view('tags.index')->with(compact('tags'));
     }
 

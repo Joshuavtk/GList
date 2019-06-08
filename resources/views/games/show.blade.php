@@ -19,7 +19,7 @@
         <div class="col-md-6 col-xl-8 col-12">
             <div class="row ">
 
-                @if(count($game->franchises))
+                @if(count($franchises))
                     <div class="col-12 mb-4 col-xl-6">
                         <div class="card border-left-primary shadow h-100 py-2">
                             <div class="card-body">
@@ -29,7 +29,7 @@
                                             Franchises
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            @foreach($game->franchises as $franchise)
+                                            @foreach($franchises as $franchise)
                                                 <h2 class="badge badge-primary">{{$franchise->title}}</h2>
                                             @endforeach
                                         </div>
@@ -43,7 +43,7 @@
                     </div>
                 @endif
 
-                @if(count($game->platforms))
+                @if(count($platforms))
                 <!-- Earnings (Monthly) Card Example -->
                     <div class="col-12 mb-4 col-xl-6">
                         <div class="card border-left-success shadow h-100 py-2">
@@ -54,7 +54,7 @@
                                             Platforms
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            @foreach($game->platforms as $platform)
+                                            @foreach($platforms as $platform)
                                                 <h2 class="badge badge-success">{{$platform->title}}</h2>
                                             @endforeach
                                         </div>
@@ -68,7 +68,7 @@
                     </div>
                 @endif
 
-                @if(count($game->tags))
+                @if(count($notes))
                 <!-- Earnings (Monthly) Card Example -->
                     <div class="col-12 mb-4 col-xl-6">
                         <div class="card border-left-danger shadow h-100 py-2">
@@ -76,11 +76,11 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Tags
+                                            Notes
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            @foreach($game->tags as $tag)
-                                                <h2 class="badge badge-danger">{{$tag->title}}</h2>
+                                            @foreach($notes as $note)
+                                                <h2 class="badge badge-danger">{{$note->title}}</h2>
                                             @endforeach
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@
                     </div>
                 @endif
 
-                @if(count($game->editions))
+                @if(count($editions))
                 <!-- Earnings (Monthly) Card Example -->
                     <div class="col-12 mb-4 col-xl-6">
                         <div class="card border-left-warning shadow h-100 py-2">
@@ -104,7 +104,7 @@
                                             Editions
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            @foreach($game->editions as $edition)
+                                            @foreach($editions as $edition)
                                                 <h2 class="badge badge-warning text-dark">{{$edition->title}}</h2>
                                             @endforeach
                                         </div>
@@ -124,7 +124,7 @@
 
             <div class="card w-100 mb-4">
                 <div class="card-body text-center">
-                    <img class="w-100" src="{{$game->thumbnail_url}}" alt="" style="max-height: 400px;">
+                    <img class="w-100" src="{{$game->thumbnail_url ?? 'https://image.shutterstock.com/image-vector/missing-image-vector-illustration-no-260nw-1138069358.jpg'}}" alt="" style="max-height: 400px;">
                 </div>
             </div>
 
@@ -158,7 +158,7 @@
                     {{$game->body}}
                     <hr>
                     <b>Score:</b> {{$game->score}}<br>
-                    <b>Urgency:</b> {{$game->urgency}}<br>
+                    <b>Urgency:</b> {{App\Game::URGENCY_LEVELS[$game->urgency]}}<br>
                     {{--                    <b>Favorite:</b> {{$game->favorite}}<br>--}}
                     <b>Obtained at:</b> {{$game->obtained_at}}<br>
                     <b>Finished at:</b> {{$game->finished_at}}<br>

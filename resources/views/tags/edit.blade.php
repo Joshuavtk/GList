@@ -23,7 +23,7 @@
                     <div class="col-md-6">
                         <select class="form-control" id="category" name="category">
                             @foreach($categories as $key => $category)
-                                <option value="{{++$key}}" {{ $tag->category === $key ? 'selected' : '' }}>{{$category}}</option>
+                                <option value="{{$key}}" {{ $tag->category === $key ? 'selected' : '' }}>{{$category}}</option>
                             @endforeach
                         </select>
                     </div>

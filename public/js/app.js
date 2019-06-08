@@ -39979,6 +39979,11 @@ __webpack_require__(/*! ../../node_modules/bootstrap-select/js/bootstrap-select 
 //     el: '#app'
 // });
 
+
+$(document).on("keydown", ":input:not(textarea)", function (event) {
+  return event.key != "Enter";
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
