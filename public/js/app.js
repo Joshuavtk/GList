@@ -55437,8 +55437,6 @@ $(document).ready(function () {
       "targets": [6, 7]
     }, {
       "visible": false,
-      "searchable": false,
-      "orderable": false,
       "targets": [1, 2, 3, 4]
     }],
     colReorder: true,

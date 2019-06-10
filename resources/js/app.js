@@ -25,8 +25,6 @@ $(document).ready(function () {
             },
             {
                 "visible": false,
-                "searchable": false,
-                "orderable": false,
                 "targets": [1, 2, 3, 4]
             }
         ],
