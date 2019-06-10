@@ -19,7 +19,7 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('thumbnail_url')->nullable();
+            $table->text('thumbnail_url')->nullable();
             $table->text('body')->nullable();
             $table->integer('amount_paid')->nullable();
 

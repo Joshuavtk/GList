@@ -31,8 +31,8 @@ class GameSeeder extends Seeder
      */
     public function run()
     {
-        $gameTitlesPrepend = Game::GAME_TITLES_APPEND;
-        $gameTitlesAppend = Game::GAME_TITLES_PREPEND;
+        $gameTitlesPrepend = Game::GAME_TITLES_PREPEND;
+        $gameTitlesAppend = Game::GAME_TITLES_APPEND;
 
         for ($i = 0; $i < 100; $i++) {
 //            $platform = Platform::all()->random();
@@ -51,7 +51,7 @@ class GameSeeder extends Seeder
             $game->book_owned = $this->faker->boolean;
             $game->box_owned = $this->faker->boolean;
             $game->score = $this->faker->numberBetween(0, 10);
-            $game->progression_status_code = $this->faker->numberBetween(1, 5);
+            $game->progression_status_code = $this->faker->numberBetween(0, 4);
             $game->release_date_at = $this->faker->dateTimeThisMonth();
             $game->obtained_at = $this->faker->dateTimeThisMonth();
             $game->finished_at = $this->faker->dateTimeThisMonth();

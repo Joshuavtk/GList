@@ -14,7 +14,7 @@ class Tag extends Model
 {
     protected $fillable = ['title', 'category'];
 
-    const CATEGORIES = ['Platforms', 'Franchises', 'Notes', 'Editions'];
+    const CATEGORIES = ['Franchises', 'Platforms', 'Notes', 'Editions'];
 
     /**
      * @return BelongsToMany

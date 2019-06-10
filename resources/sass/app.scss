@@ -6,6 +6,7 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-select/sass/bootstrap-select';
 @import 'sb-admin';
+@import '~datatables.net-bs4/css/dataTables.bootstrap4.min.css';
 
 .navbar-laravel {
   background-color: #fff;
@@ -20,6 +21,10 @@
 
 .thumbnail:hover .thumbnail-text > p {
   color: $primary !important;
+}
+
+.table_thumbnail {
+  height: 50px;
 }
 
 .urgency-None {

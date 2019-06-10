@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Franchise;
 use App\Game;
 use App\Http\Requests\GameStoreRequest;
 use App\Http\Requests\GameUpdateRequest;
-use App\Platform;
-use App\Tag;
+use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -187,11 +185,28 @@ class GameController extends Controller
     {
         $search_term = $search_input->search_input;
 
-        $games = auth()->user()->games()->where('title', 'LIKE', "%$search_term%")->paginate(16);
+        $franchises = auth()->user()->tags()->where('category', '=', 0)->get();
+        $platforms = auth()->user()->tags()->where('category', '=', 1)->get();
+        $notes = auth()->user()->tags()->where('category', '=', 2)->get();
+        $editions = auth()->user()->tags()->where('category', '=', 3)->get();
+        $statuses = Game::PROGRESSION_STATUSES;
 
-        $games->withPath("?search_input=$search_term");
+        $games = auth()->user()->games()->get();
+//        $games = auth()->user()->games()->where('title', 'LIKE', "%$search_term%")->paginate(16);
 
-        return view('games.index')->with(compact('games', 'search_term'));
+//        $games->withPath("?search_input=$search_term");
+
+        return view('games.search')->with(
+            compact(
+                'games',
+                'search_term',
+                'franchises',
+                'platforms',
+                'notes',
+                'editions',
+                'statuses'
+            )
+        );
     }
 
 
@@ -200,9 +215,12 @@ class GameController extends Controller
      *
      * @param Game $game
      * @return Response
+     * @throws Exception
      */
     public function destroy(Game $game)
     {
-        //
+        $game->delete();
+
+        return redirect(route('game.index'));
     }
 }

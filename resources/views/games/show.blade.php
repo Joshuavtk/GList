@@ -6,11 +6,9 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{$game->title}}</h1>
         <div>
-            <a href="{{ route('game.edit', $game->id) }}" class="btn btn-success"><span class="fas fa-plus"></span> Add
-                to list</a>
+{{--            <a href="{{ route('game.edit', $game->id) }}" class="btn btn-success"><span class="fas fa-plus"></span> Add--}}
+{{--                to list</a>--}}
             <a href="{{ route('game.edit', $game->id) }}" class="btn btn-primary"><span class="fas fa-edit"></span> Edit</a>
-            <a href="{{ route('game.edit', $game->id) }}" class="btn btn-danger"><span class="fas fa-trash"></span>
-                Delete</a>
         </div>
     </div>
 
@@ -124,7 +122,9 @@
 
             <div class="card w-100 mb-4">
                 <div class="card-body text-center">
-                    <img class="w-100" src="{{$game->thumbnail_url ?? 'https://image.shutterstock.com/image-vector/missing-image-vector-illustration-no-260nw-1138069358.jpg'}}" alt="" style="max-height: 400px;">
+                    <img class="w-100"
+                         src="{{$game->thumbnail_url ?? 'https://image.shutterstock.com/image-vector/missing-image-vector-illustration-no-260nw-1138069358.jpg'}}"
+                         alt="" style="max-height: 400px;">
                 </div>
             </div>
 
@@ -165,6 +165,15 @@
                     <b>Release date:</b> {{$game->release_date_at}}<br>
                     <b>Amount paid:</b> {{$game->amount_paid}}<br>
                     <b>Price estimate:</b> {{$game->price_estimate}}<br>
+                </div>
+                <div class="p-2 text-right">
+                    <form method="post" class="d-inline-block" action="{{route('game.delete', $game->id)}}">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <button type="submit" class="btn btn-danger"><span class="fas fa-trash"></span>
+                            Delete
+                        </button>
+                    </form>
                 </div>
             </div>
 
